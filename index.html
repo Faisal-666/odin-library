@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+    <script src="./index.js" defer></script>
+    <title>Odin Library</title>
+</head>
+<body>
+    <header>
+        <div class="icon">
+            <iconify-icon icon="proicons:library"></iconify-icon>
+            <h1>Library App</h1>
+        </div>
+    </header>
+
+    <main>
+        <section id="addBook">
+            <span>
+                <iconify-icon icon="proicons:book-add"></iconify-icon>
+                <h2>Add Book</h2>
+            </span>
+            
+            <form>
+                <div>
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div>
+                    <label for="author">Author</label>
+                    <input type="text" id="author" name="author" required>
+                </div>
+                <div>
+                    <label for="pages">Pages</label>
+                    <input type="number" id="pages" name="pages" min="1" required>
+                </div>
+                <div>
+                    <label for="isRead">Read status</label>
+                    <input type="checkbox" id="isRead" name="isRead">
+                </div>
+
+                <button type="submit">Add</button>
+            </form>
+        </section>
+
+        <section id="search">
+            <span>
+                <iconify-icon icon="lucide:book-search"></iconify-icon>
+                <h2>Search by title</h2>
+            </span>
+            
+            <div>
+                <ul>
+                    <li>Only can search with title</li>
+                    <li>Non-case sensitive</li>
+                    <li>Result diplayed on rack below</li>
+                    <li>Books on rack will replaced by search result</li>
+                    <li>Delete search input to display back added books</li>
+                </ul>
+            </div>
+
+            <div>
+                <label for="searchBook"></label>
+                <input type="search" id="searchBook">
+                <button type="submit">Search</button>
+            </div>
+        </section>
+
+        <section id="uncompletedRack">
+            <span>
+                <iconify-icon icon="tabler:folder-x"></iconify-icon>
+                <h2>Uncompleted Rack</h2>
+            </span>
+            
+            <div id="uncompletedBookList"></div>
+        </section>
+
+        <section id="completedRack">
+            <span>
+                <iconify-icon icon="tabler:folder-check"></iconify-icon>
+                <h2>Completed Rack</h2>
+            </span>
+            
+            <div id="completedBookList"></div>
+        </section>
+    </main>
+
+    <dialog class="book-views">
+        <iconify-icon icon="material-symbols:close" title="Close"></iconify-icon>
+        <h2></h2>
+        <span id="author"></span>
+        <span id="pages"></span>
+        <span id="readStatus"></span>
+        <div class="tools">
+            <iconify-icon></iconify-icon>
+            <iconify-icon icon="line-md:trash" title="Delete"></iconify-icon>
+        </div>
+    </dialog>
+</body>
+</html>
