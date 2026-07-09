@@ -6,7 +6,6 @@
     --text: hsl(0, 0%, 95%);
     --text-muted: hsl(0, 0%, 70%);
     --primary: hsl(12, 95%, 60%);
-    --border-color: hsl(12, 50%, 55%);
     --backdrop: hsla(0, 0%, 0%, 0.7);
 }
 *,
