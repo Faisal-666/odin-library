@@ -1,4 +1,35 @@
-const myLibrary = [];
+class Library {
+    data = [];
+
+    addBook = (book) => {
+        this.data.push(book);
+    }
+
+    get books () {
+        return this.data;
+    }
+
+    moveBook = (id, status) => {
+        const book = this.data.find(b => b.id === id);
+        book.read = status;
+    }
+
+    searchBookWithTitle = (title) => {
+        return this.data.filter((book) => book.title.toLowerCase().includes(title.toLowerCase()));
+    }
+
+    deleteBook = (id) => {
+        const index = this.data.findIndex(b => b.id === id);
+
+        if (index !== -1) {
+            this.data.splice(index, 1);
+        } else {
+            return;
+        }
+    }
+}
+
+const myLibrary = new Library;
 
 class Book {
     constructor(payload) {
@@ -24,30 +55,19 @@ class Book {
 
 const addBookToLibrary = (payload) => {
     const book = new Book(payload);
-    myLibrary.push(book);
+    myLibrary.addBook(book);
     document.dispatchEvent(new Event(RENDER_EVENT));
 }
 
 const deleteBook = (id) => {
-    const index = myLibrary.findIndex(b => b.id === id);
-
-    if (index !== -1) {
-        myLibrary.splice(index, 1);
-    } else {
-        return;
-    }
-
+    myLibrary.deleteBook(id);
     document.dispatchEvent(new Event(RENDER_EVENT));
 }
 
 const moveBook = (id, status) => {
-    const book = myLibrary.find(b => b.id === id);
-    book.read = status;
-
+    myLibrary.moveBook(id, status);
     document.dispatchEvent(new Event(RENDER_EVENT));
 }
-
-const searchBookTitle = (query) => myLibrary.filter((book) => book.title.toLowerCase().includes(query));
 
 const makeBook = (obj) => {
     const target = obj.read
@@ -76,7 +96,7 @@ document.addEventListener(RENDER_EVENT, () => {
     completeBookList.innerHTML = '';
     uncompleteBookList.innerHTML = '';
 
-    for (const book of myLibrary) {
+    for (const book of myLibrary.books) {
         const { bookEl, target } = makeBook(book);
         target.innerHTML += bookEl;
     }
@@ -157,7 +177,7 @@ searchSection.addEventListener('submit', (e) => {
     completeBookList.innerHTML = '';
     uncompleteBookList.innerHTML = '';
 
-    const filtered = searchBookTitle(query.value.toLowerCase());
+    const filtered = myLibrary.searchBookWithTitle(query.value);
    
     if (!filtered.length) {
         return;
