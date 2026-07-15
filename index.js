@@ -1,27 +1,28 @@
 const myLibrary = [];
 
-function Book(payload) {
-    const { title, author, pages, isRead } = payload;
-    
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = isRead;
-}
+class Book {
+    constructor(payload) {
+        this.#verifyPayload(payload);
+        const { title, author, pages, isRead } = payload;
 
-const verifyPayload = (payload) => {
-    const { title, author, pages, isRead } = payload;
-    const errorMsg = 'Invalid data type';
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = isRead;
+    }
 
-    if(typeof title !== 'string' || typeof author !== 'string') throw new Error(`${errorMsg}: title or author is not string`);
-    if(typeof pages !== 'number') throw new Error(`${errorMsg}: pages is not number`);
-    if(typeof isRead !== 'boolean') throw new Error(`${errorMsg}: isRead is not boolean`);
+    #verifyPayload = (payload) => {
+        const { title, author, pages, isRead } = payload;
+        const errorMsg = 'Invalid data type';
+
+        if(typeof title !== 'string' || typeof author !== 'string') throw new Error(`${errorMsg}: title or author is not string`);
+        if(typeof pages !== 'number') throw new Error(`${errorMsg}: pages is not number`);
+        if(typeof isRead !== 'boolean') throw new Error(`${errorMsg}: isRead is not boolean`);
+    }
 }
 
 const addBookToLibrary = (payload) => {
-    verifyPayload(payload);
-
     const book = new Book(payload);
     myLibrary.push(book);
     document.dispatchEvent(new Event(RENDER_EVENT));
